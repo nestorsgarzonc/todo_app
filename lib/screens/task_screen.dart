@@ -18,14 +18,7 @@ class TaskScreen extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: AddTaskScreen(
-                  addTaskCallBack: (value) {
-                    /* setState(() {
-                      addTasks(value);
-                    }); */
-                    Navigator.pop(context);
-                  },
-                ),
+                child: AddTaskScreen(),
               ),
             ),
           );
@@ -69,7 +62,7 @@ class TaskScreen extends StatelessWidget {
             style: TextStyle(fontSize: 50, fontWeight: FontWeight.w900),
           ),
           Text(
-            '${tasksCount.length} tasks',
+            '$tasksCount tasks',
             style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
           ),
         ],
