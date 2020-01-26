@@ -17,6 +17,11 @@ class TaskData extends ChangeNotifier {
     return _tasks.length;
   }
 
+  void deleteTask(int index){
+    _tasks.removeAt(index);
+    notifyListeners();
+  }
+
   void changeCheckBox(int index){
     _tasks[index].toggleDone();
     notifyListeners();
