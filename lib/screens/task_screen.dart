@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/models/task.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/models/task_data.dart';
 import 'package:todo_app/screens/add_task_screen.dart';
 import 'package:todo_app/widgets/tasks_list.dart';
 
-class TaskScreen extends StatefulWidget {
-  @override
-  _TaskScreenState createState() => _TaskScreenState();
-}
-
-class _TaskScreenState extends State<TaskScreen> {
-  List<Task> tasks = [
-    Task(name: 'Buy Tesla'),
-    Task(name: 'Refactor Higia'),
-    Task(name: 'Be greater'),
-    Task(name: 'Be greater'),
-  ];
-
+class TaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var tasksCount = Provider.of<TaskData>(context).taskCount;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -30,9 +20,9 @@ class _TaskScreenState extends State<TaskScreen> {
                     bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: AddTaskScreen(
                   addTaskCallBack: (value) {
-                    setState(() {
-                      tasks.add(Task(name: value));
-                    });
+                    /* setState(() {
+                      addTasks(value);
+                    }); */
                     Navigator.pop(context);
                   },
                 ),
@@ -46,7 +36,7 @@ class _TaskScreenState extends State<TaskScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          topDesign(),
+          topDesign(tasksCount),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
             decoration: BoxDecoration(
@@ -54,14 +44,14 @@ class _TaskScreenState extends State<TaskScreen> {
               color: Colors.white,
             ),
             height: 600,
-            child: TasksList(tasks: tasks),
+            child: TasksList(),
           ),
         ],
       ),
     );
   }
 
-  Container topDesign() {
+  Container topDesign(var tasksCount) {
     return Container(
       padding: EdgeInsets.only(top: 60, bottom: 30, left: 30, right: 30),
       child: Column(
@@ -79,7 +69,7 @@ class _TaskScreenState extends State<TaskScreen> {
             style: TextStyle(fontSize: 50, fontWeight: FontWeight.w900),
           ),
           Text(
-            '${tasks.length} tasks',
+            '${tasksCount.length} tasks',
             style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
           ),
         ],
